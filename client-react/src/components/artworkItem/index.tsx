@@ -4,6 +4,7 @@ import {Box, Paper, styled, Typography} from '@mui/material';
 import { IArtwork } from '../../interfaces/IArtwork.interface';
 import notFound from '../../assets/img/notFound.jpg'
 import soldOut from '../../assets/img/soldOut.jpg'
+import theme from "../../assets/theme";
 
 
 interface IArtworkItemProps {
@@ -20,14 +21,17 @@ const ArtworkItem: React.FC<IArtworkItemProps> = ({ artwork, selectedArtwork, ha
     const isSelected: boolean = artwork.id === selectedArtwork
     return (
         <Paper onClick={() => handleSelectArtwork(artwork.id)}
-            style={{
+            sx={{
                 border: isSelected ? '2px solid gray' : '1px solid gray',
                 transform: isSelected ? 'scale(1.05)' : 'scale(1)',
                 filter: artwork.availability ? 'none' : 'brightness(50%)',
                 padding: '10px',
                 margin: '10px',
                 cursor: 'pointer',
-                width: '346px'
+                width: '346px',
+                [theme.breakpoints.down('sm')]: {
+                    maxWidth: '240px',
+                },
             }}
         >
             <Box

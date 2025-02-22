@@ -54,7 +54,14 @@ const ArtworkList: React.FC<IArtworkListProps> = ({ artworks }) => {
                     onClose={() => setShowModal(false)}
                 />
             )}
-             <Box sx={{my: '20px'}}>
+             <Box sx={{
+                 my: '20px',
+                 [theme.breakpoints.down('sm')]: {
+                     display: 'flex',
+                     gap: '10px',
+                     flexDirection: 'column',
+                 },
+             }}>
                  <Button  sx={{background: theme.palette.primary.light, mx:'10px'}} onClick={handleCreate}>Create</Button>
                  <Button  sx={{background: theme.palette.primary.light, mx:'10px'}} onClick={handleUpdate}>Edit</Button>
                  <Button type="submit"
