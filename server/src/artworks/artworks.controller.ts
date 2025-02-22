@@ -30,7 +30,6 @@ export class ArtworksController {
      */
     @Post()
     create(@Body() createArtworkDto: CreateArtworkDto): Promise<IArtwork> {
-        console.log(createArtworkDto)
         return this.artworksService.create(createArtworkDto);
     }
 

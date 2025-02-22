@@ -30,7 +30,6 @@ const ArtworkList: React.FC<IArtworkListProps> = ({ artworks }) => {
 
     const handleDelete = (): void => {
         if (selectedArtwork) {
-            console.log(typeof selectedArtwork)
             dispatch(deleteArtworkThunk(selectedArtwork));
             setSelectedArtwork(undefined);
         }
