@@ -2,8 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
     handleAxiosError, fetchArtworks, createArtwork,
     getArtwork, updateArtwork, deleteArtwork } from '../artworkApi/artworkApi';
+
 import { IFilters } from '../../../interfaces/IFilters.interface';
-import { IArtwork, ICreateArtwork, IUpdateArtwork } from '../../../interfaces/IArtwork.interface';
+import { ICreateArtwork, IUpdateArtwork } from '../../../interfaces/IArtwork.interface';
 import { IError } from '../../../interfaces/IError.interface';
 
 
@@ -47,7 +48,7 @@ export const getArtworkThunk = createAsyncThunk(
 
 export const updateArtworkThunk = createAsyncThunk(
     'artworks/updateArtwork',
-    async ({ id, updatedData }: { id: string, updatedData: IArtwork },
+    async ({ id, updatedData }: { id: string, updatedData: IUpdateArtwork },
            { rejectWithValue }: AsyncThunkAPI) => {
         try {
             const { title, artist, price, type, availability  } = updatedData
