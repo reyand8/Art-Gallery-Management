@@ -26,6 +26,11 @@ const FormTextField = styled(TextField)(({ theme }) => ({
     }
 }));
 
+/**
+ * ArtworkForm component handles creating and editing artwork entries.
+ *
+ * @param {IArtworkFormProps} props - The props for the component, including artwork data and close callback.
+ */
 const ArtworkForm: React.FC<IArtworkFormProps> = ({ artwork, onClose }) => {
     const dispatch: AppDispatch = useDispatch();
 
@@ -46,6 +51,10 @@ const ArtworkForm: React.FC<IArtworkFormProps> = ({ artwork, onClose }) => {
         updatedAt: artwork?.updatedAt ?? new Date(),
     });
 
+    /**
+     * Handles input change for text fields, updates the respective state.
+     * @param {React.ChangeEvent<HTMLInputElement>} e - The change event from input field.
+     */
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = e.target;
         if (name === 'price') {
@@ -64,6 +73,10 @@ const ArtworkForm: React.FC<IArtworkFormProps> = ({ artwork, onClose }) => {
         setData((prev: IArtwork) => ({ ...prev, type: event.target.value }));
     };
 
+    /**
+     * Handles saving the artwork form data, either by creating or updating artwork.
+     * Validates the form before dispatching the appropriate action.
+     */
     const handleSave = (): void => {
         if (!validate()) return;
         if (artwork?.id) {
@@ -75,7 +88,11 @@ const ArtworkForm: React.FC<IArtworkFormProps> = ({ artwork, onClose }) => {
         onClose();
     };
 
-    const validate = () => {
+    /**
+     * Validates the form data and sets error states.
+     * @returns {boolean} - Whether the form data is valid.
+     */
+    const validate = (): boolean => {
         const newErrors: IArtworkErrors = validateArtwork(data);
         setErrors(newErrors);
         return isValidArtwork(newErrors);

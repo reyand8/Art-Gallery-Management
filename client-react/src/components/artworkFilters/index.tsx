@@ -1,19 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Button, Paper, styled, TextField } from '@mui/material';
 
 import { IFilters } from '../../interfaces/IFilters.interface';
 import {orderOptions, typeOptions} from '../utils/options/options';
 import { SortField } from '../utils/sort';
 import theme from '../../assets/theme';
+import {SelectChangeEvent} from "@mui/material/Select";
 
 
 const TextFieldBox = styled('form')(({ theme }) => ({}));
 
 interface IArtworkFormProps {
+    filters: IFilters;
     setFilters: React.Dispatch<React.SetStateAction<IFilters>>;
 }
 
-const ArtworkFilters: React.FC<IArtworkFormProps> = ({setFilters}) => {
+/**
+ * ArtworkFilters Component
+ *
+ * A form for filtering artwork by artist, type, and sorting by price order.
+ * Updates the parent component's filter state and stores the filters in localStorage.
+ */
+const ArtworkFilters: React.FC<IArtworkFormProps> = ({filters, setFilters}) => {
     const [filterArtist, setFilterArtist] =
         useState('');
     const [filterType, setFilterType] =
@@ -21,18 +29,40 @@ const ArtworkFilters: React.FC<IArtworkFormProps> = ({setFilters}) => {
     const [sortOrder, setSortOrder] =
         useState<'' |'ASC' | 'DESC'>('ASC');
 
-    const handleNameChange = (e: any): void => {
-        setFilterArtist(e.target.value)
+    /**
+     * Sets the form values based on the received filters prop.
+     */
+    useEffect((): void => {
+        setFilterArtist(filters.artist || '');
+        setFilterType(filters.type || '');
+        setSortOrder(filters.price || 'ASC');
+    }, [filters]);
+
+    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        setFilterArtist(e.target.value);
     };
 
-    const handleTypeChange = (e: any): void  => {
-        setFilterType(e.target.value as '' | 'painting' | 'sculpture')
-    }
+    const handleTypeChange = (e: SelectChangeEvent): void => {
+        setFilterType(e.target.value as '' | 'painting' | 'sculpture');
+    };
 
-    const handleSortOrderChange = (e: any): void => {
+    const handleSortOrderChange = (e: SelectChangeEvent): void => {
         setSortOrder(e.target.value as '' | 'ASC' | 'DESC');
     };
 
+    const handleResetFilters = (): void => {
+        setFilterArtist('');
+        setFilterType('');
+        setSortOrder('ASC');
+        setFilters({});
+        localStorage.removeItem('artworkFilters');
+    };
+
+    /**
+     * Handles the form submission to update filters and save them to localStorage.
+     *
+     * @param {React.FormEvent<HTMLFormElement>} event - The form submit event.
+     */
     const onSubmitClick = (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
         const updatedFilters: IFilters = {};
@@ -48,6 +78,7 @@ const ArtworkFilters: React.FC<IArtworkFormProps> = ({setFilters}) => {
             updatedFilters.price = sortOrder;
         }
         setFilters(updatedFilters);
+        localStorage.setItem('artworkFilters', JSON.stringify(updatedFilters));
     }
 
     return (
@@ -67,6 +98,7 @@ const ArtworkFilters: React.FC<IArtworkFormProps> = ({setFilters}) => {
                 />
                 <SortField label={'Type'} options={typeOptions} value={filterType} handleTypeChange={handleTypeChange}/>
                 <SortField label={'Order'} options={orderOptions}  value={sortOrder} handleTypeChange={handleSortOrderChange}/>
+                <Button color="secondary" onClick={handleResetFilters}>Reset</Button>
                 <Button color="primary" type="submit">Filter</Button>
             </TextFieldBox>
         </Paper>

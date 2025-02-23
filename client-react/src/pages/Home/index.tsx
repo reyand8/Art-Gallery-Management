@@ -10,7 +10,13 @@ import { AppDispatch, RootState } from '../../features/store';
 import theme from '../../assets/theme';
 import { fetchArtworksThunk } from '../../features/artwork/artworkThunks/artworkThunks';
 
-
+/**
+ * Home Component
+ *
+ * Displays the main art gallery page, including filters, artwork list,
+ * and loading/error states.
+ * Utilizes Redux for state management and Material-UI for styling.
+ */
 const Home: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
 
@@ -20,12 +26,30 @@ const Home: React.FC = () => {
     const { artworks, loading, error } =
         useSelector((state: RootState) => state.artworks);
 
+    /**
+     * Loads artworks based on current filters.
+     *
+     * @param {IFilters | {}} filters - Filters for fetching artworks.
+     */
     const loadArtworks = useCallback((filters: IFilters | {}) => {
         dispatch(fetchArtworksThunk(filters));
     }, [dispatch]);
 
+    /**
+     * Loads saved filters from local storage when the component mounts.
+     */
     useEffect((): void => {
-        loadArtworks(filters)
+        const savedFilters: string| null = localStorage.getItem('artworkFilters');
+        if (savedFilters) {
+            setFilters(JSON.parse(savedFilters));
+        }
+    }, []);
+
+    /**
+     * Triggers loading of artworks whenever filters change.
+     */
+    useEffect((): void => {
+        loadArtworks(filters);
     }, [filters, loadArtworks]);
 
     return (
@@ -38,7 +62,7 @@ const Home: React.FC = () => {
             </Typography>
             <Grid container sx={{ my: 4 }}>
                 <Grid size={10}>
-                    <ArtworkFilters setFilters={setFilters} />
+                    <ArtworkFilters filters={filters} setFilters={setFilters} />
                 </Grid>
                 <Grid size={10}>
                     {loading && (
