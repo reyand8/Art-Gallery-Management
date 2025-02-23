@@ -4,7 +4,7 @@ import { ArtworksService } from './artworks.service';
 import { CreateArtworkDto } from './dto/createArtwork.dto';
 import { UpdateArtworkDto } from './dto/updateArtwork.dto';
 import { QueryArtworksDto } from './dto/queryArtworks.dto';
-import { IArtwork } from '../interfaces/IArtwork';
+import { IArtwork } from '../interfaces/IArtwork.interface';
 
 
 @Controller('artworks')

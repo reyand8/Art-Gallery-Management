@@ -4,7 +4,9 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Artwork } from '../models/artwork.model';
 import { CreateArtworkDto } from './dto/createArtwork.dto';
 import { UpdateArtworkDto } from './dto/updateArtwork.dto';
-import {IArtwork} from "../interfaces/IArtwork";
+import { IArtwork } from '../interfaces/IArtwork.interface';
+import { IArtworkFilters } from '../interfaces/IArtworkFilters.interface';
+import { IFilters } from '../interfaces/IFilters.interface';
 
 
 @Injectable()
@@ -16,9 +18,9 @@ export class ArtworksService {
      * @param query - Query parameters for filtering and sorting artworks.
      * @returns Promise<Artwork[]> - List of artworks.
      */
-    async findAll(query: any): Promise<Artwork[]> {
+    async findAll(query: IFilters): Promise<Artwork[]> {
         const { price, artist, type } = query;
-        const options: any = { where: {} };
+        const options: IArtworkFilters = { where: {} };
 
         if (price) options.order = [['price', price]];
         if (artist) options.where.artist = artist;
@@ -67,7 +69,7 @@ export class ArtworksService {
      * @throws NotFoundException - If no artwork is found with the given ID.
      */
     async remove(id: string): Promise<void> {
-        const artwork: any = await this.findOne(id);
+        const artwork: Artwork = await this.findOne(id);
         await artwork.destroy();
     }
 }

@@ -1,5 +1,5 @@
 import { Table, Column, Model, DataType } from 'sequelize-typescript';
-import { IArtwork } from '../interfaces/IArtwork';
+import { IArtwork } from '../interfaces/IArtwork.interface';
 
 
 @Table({ tableName: 'artworks' })
