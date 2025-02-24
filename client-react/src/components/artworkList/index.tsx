@@ -35,6 +35,11 @@ const ArtworkList: React.FC<IArtworkListProps> = ({ artworks }) => {
         }
     };
 
+    const handleCloseModal = (): void => {
+        setShowModal(false);
+        setSelectedArtwork(undefined);
+    };
+
     const handleUpdate = (): void => {
         if (selectedArtwork) {
             setShowModal(true)
@@ -50,7 +55,7 @@ const ArtworkList: React.FC<IArtworkListProps> = ({ artworks }) => {
             {showModal && (
                 <ArtworkForm
                     artwork={selectedArtworkData}
-                    onClose={() => setShowModal(false)}
+                    onClose={handleCloseModal}
                 />
             )}
              <Box sx={{
