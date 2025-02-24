@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Alert, Box, CircularProgress, Typography } from '@mui/material';
+import {Alert, Box, CircularProgress, styled, Typography} from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
 import ArtworkList from '../../components/artworkList';
@@ -9,6 +9,26 @@ import { IFilters } from '../../interfaces/IFilters.interface';
 import { AppDispatch, RootState } from '../../features/store';
 import theme from '../../assets/theme';
 import { fetchArtworksThunk } from '../../features/artwork/artworkThunks/artworkThunks';
+
+
+const BoxError = styled(Box)(() => ({
+    marginTop: '20px',
+    height: '100vh',
+    [theme.breakpoints.down('md')]: {
+        maxWidth: '530px',
+    },
+    [theme.breakpoints.down('sm')]: {
+        maxWidth: '260px',
+    },
+}));
+
+const BoxLoading = styled(Box)(() => ({
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+}));
+
 
 /**
  * Home Component
@@ -31,9 +51,23 @@ const Home: React.FC = () => {
      *
      * @param {IFilters | {}} filters - Filters for fetching artworks.
      */
-    const loadArtworks = useCallback((filters: IFilters | {}) => {
+    const loadArtworks = useCallback((filters: IFilters | {}): void => {
         dispatch(fetchArtworksThunk(filters));
     }, [dispatch]);
+
+    /**
+     * Constructs a formatted error message from the `error` object.
+     * If the error contains a `message` array, it joins the messages with a newline character.
+     * If it's a string, it directly uses the string as the error message.
+     * If no `message` is available, it falls back to the `error` property or defaults to 'Error'.
+     *
+     * @returns {string} - The formatted error message.
+     */
+    const errorMessages: string = error && error.message
+        ? Array.isArray(error.message)
+            ? error.message.join('\n')
+            : error.message
+        : error?.error || 'Error';
 
     /**
      * Loads saved filters from local storage when the component mounts.
@@ -66,14 +100,16 @@ const Home: React.FC = () => {
                 </Grid>
                 <Grid size={10}>
                     {loading && (
-                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '300px' }}>
+                        <BoxLoading>
                             <CircularProgress />
-                        </Box>
+                        </BoxLoading>
                     )}
                     {error && (
-                        <Box sx={{ marginTop: '20px' }}>
-                            <Alert severity="error">{error.message || 'Error'}</Alert>
-                        </Box>
+                        <BoxError>
+                            <Alert severity="error">
+                                <pre>{errorMessages}</pre>
+                            </Alert>
+                        </BoxError>
                     )}
                     {!loading && !error && artworks && <ArtworkList artworks={artworks} />}
                 </Grid>

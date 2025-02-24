@@ -33,7 +33,7 @@ const handleFulfilled = (state: IArtworksState, action: PayloadAction<any>): voi
 
 const handleRejected = (state: IArtworksState, action: PayloadAction<any>): void  => {
     state.loading = false;
-    state.error = action.payload as IError;
+    state.error = action.payload.error as IError;
 };
 
 const artworksSlice = createSlice({

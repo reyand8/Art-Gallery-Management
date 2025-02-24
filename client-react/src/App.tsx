@@ -13,6 +13,7 @@ function App() {
                 background: theme.palette.background.default,
                 display: 'flex',
                 justifyContent: 'center',
+                height: '100%',
             }}>
                 <AppRoutes />
             </Box>
