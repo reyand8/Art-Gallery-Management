@@ -8,7 +8,7 @@ import theme from '../../assets/theme';
 import {SelectChangeEvent} from "@mui/material/Select";
 
 
-const TextFieldBox = styled('form')(({ theme }) => ({}));
+const TextFieldBox = styled('form')(() => ({}));
 
 interface IArtworkFormProps {
     filters: IFilters;
