@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Grid from '@mui/material/Grid2';
-import { Box, Button } from '@mui/material';
+import {Box, Button, Typography} from '@mui/material';
 
 import { deleteArtworkThunk } from '../../features/artwork/artworkThunks/artworkThunks';
 import { IArtwork } from '../../interfaces/IArtwork.interface';
@@ -71,15 +71,22 @@ const ArtworkList: React.FC<IArtworkListProps> = ({ artworks }) => {
                  </Button>
             </Box>
             <Grid size={12} container>
-                {artworks.map((artwork: IArtwork) => (
-                    <Grid key={artwork.id} >
-                        <ArtworkItem
-                            artwork={artwork}
-                            selectedArtwork={selectedArtwork}
-                            handleSelectArtwork={handleSelectArtwork}
-                        />
-                    </Grid>
-                ))}
+                {artworks.length === 0 ? (
+                    <Typography sx={{
+                        color: theme.palette.text.secondary,
+                        paddingLeft: '10px', my: '36px'
+                    }} variant="h6">List is empty</Typography>
+                ) : (
+                    artworks.slice(0, 4).map((artwork: IArtwork) => (
+                        <Grid key={artwork.id}>
+                            <ArtworkItem
+                                artwork={artwork}
+                                selectedArtwork={selectedArtwork}
+                                handleSelectArtwork={handleSelectArtwork}
+                            />
+                        </Grid>
+                    ))
+                )}
             </Grid>
         </>
     );
