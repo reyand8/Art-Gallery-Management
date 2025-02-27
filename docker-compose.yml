@@ -29,13 +29,25 @@ services:
     networks:
       - nest-network
 
+  # react-client
+#  client:
+#    build:
+#      context: ./client-react
+#      dockerfile: Dockerfile
+#    container_name: react-client
+#    ports:
+#      - "3000:3000"
+#    networks:
+#      - nest-network
+
+  # angular-client
   client:
     build:
-      context: ./client-react
+      context: ./client-angular
       dockerfile: Dockerfile
-    container_name: react-client
+    container_name: angular-client
     ports:
-      - "3000:3000"
+      - "4200:4200"
     networks:
       - nest-network
 
