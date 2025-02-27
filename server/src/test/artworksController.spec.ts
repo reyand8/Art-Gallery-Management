@@ -23,7 +23,7 @@ describe('ArtworksController', (): void => {
         findOne: jest.fn().mockResolvedValue(mockArtwork),
         create: jest.fn().mockResolvedValue(mockArtwork),
         update: jest.fn().mockResolvedValue(mockArtwork),
-        remove: jest.fn().mockResolvedValue(undefined),
+        remove: jest.fn().mockResolvedValue(mockArtwork),
     };
 
     beforeEach(async (): Promise<void> => {
@@ -79,8 +79,8 @@ describe('ArtworksController', (): void => {
     });
 
     it('should remove an artwork', async (): Promise<void> => {
-        const result: void = await controller.remove('1');
-        expect(result).toBeUndefined();
+        const result: IArtwork = await controller.remove('1');
+        expect(result).toEqual(mockArtwork);
         expect(service.remove).toHaveBeenCalledWith('1');
     });
 });

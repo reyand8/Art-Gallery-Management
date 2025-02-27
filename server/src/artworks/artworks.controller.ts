@@ -61,10 +61,10 @@ export class ArtworksController {
      * DELETE /artworks/:id
      * Removes an artwork by its ID.
      * @param id - ID of the artwork to remove.
-     * @returns Promise<void> - Confirmation of deletion.
+     * @returns Promise<IArtwork> - The removed artwork.
      */
     @Delete(':id')
-    remove(@Param('id') id: string): Promise<void> {
+    remove(@Param('id') id: string): Promise<IArtwork> {
         return this.artworksService.remove(id);
     }
 }

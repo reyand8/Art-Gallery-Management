@@ -65,11 +65,12 @@ export class ArtworksService {
     /**
      * Removes an artwork by its ID.
      * @param id - ID of the artwork to remove.
-     * @returns Promise<void> - Confirmation of deletion.
+     * @returns Promise<Artwork> - The removed artwork.
      * @throws NotFoundException - If no artwork is found with the given ID.
      */
-    async remove(id: string): Promise<void> {
+    async remove(id: string): Promise<Artwork> {
         const artwork: Artwork = await this.findOne(id);
         await artwork.destroy();
+        return artwork
     }
 }
