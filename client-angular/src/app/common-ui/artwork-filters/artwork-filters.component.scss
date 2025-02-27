@@ -1,0 +1,29 @@
+.filter-card {
+  padding: 12px;
+}
+
+.filter-card-title {
+  margin: 0 0 20px 16px;
+}
+
+.filter-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.filter-btns {
+  margin-bottom: 21px!important;
+  gap: 14px;
+}
+
+@media (max-width: 914px) {
+  .filter-content {
+    flex-direction: column;
+  }
+}
+
+
+
+
+

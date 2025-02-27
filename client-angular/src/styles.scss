@@ -1,0 +1,13 @@
+html { height: 100%; }
+html { background: #ccd4ea;}
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: linear-gradient(80deg, #ccd4ea, #6a8ce8);
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: white!important;
+}

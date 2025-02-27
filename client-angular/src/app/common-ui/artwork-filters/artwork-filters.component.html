@@ -1,0 +1,39 @@
+<mat-card class="filter-card">
+  <mat-card-title class="filter-card-title">
+    Filters
+  </mat-card-title>
+  <mat-card-content class="filter-content">
+
+    <mat-form-field class="form-field">
+      <mat-label class="form-label">Filter by Artist</mat-label>
+      <input class="form-input" matInput [(ngModel)]="filterArtist">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Type</mat-label>
+      <mat-select [(ngModel)]="filterType">
+        <mat-option value="">All</mat-option>
+        <mat-option value="painting">Painting</mat-option>
+        <mat-option value="sculpture">Sculpture</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Order</mat-label>
+      <mat-select [(ngModel)]="sortOrder">
+        <mat-option value="ASC">Price: Low to High</mat-option>
+        <mat-option value="DESC">Price: High to Low</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-card-actions class="filter-btns">
+      <button mat-raised-button color="primary" (click)="applyFilters()">
+        Filter
+      </button>
+      <button mat-button color="warn" (click)="resetFilters()">
+        Reset
+      </button>
+    </mat-card-actions>
+
+  </mat-card-content>
+</mat-card>

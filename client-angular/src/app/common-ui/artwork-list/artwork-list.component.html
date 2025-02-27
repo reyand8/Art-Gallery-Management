@@ -1,0 +1,27 @@
+<div *ngIf="!artworks.length">No artworks available.</div>
+<div *ngFor="let artwork of artworks" class="artwork-list">
+  <mat-card [ngClass]="{'selected': artwork.id === selectedArtworkId}"
+            (click)="onSelectArtwork(artwork.id)"
+            class="artwork-item">
+    <img *ngIf="artwork.availability"
+         src="assets/img/notFound.jpg"
+         alt="Not Found"
+         class="artwork-image">
+
+    <img *ngIf="!artwork.availability"
+         src="assets/img/soldOut.jpg"
+         alt="Sold Out"
+         class="artwork-image">
+
+    <mat-card-title>{{ artwork.title }}</mat-card-title>
+
+    <mat-card-content>
+      <p>Artist: {{ artwork.artist }}</p>
+      <p>Type: {{ artwork.type }}</p>
+      <p>Price: {{ artwork.price }}</p>
+      <p>Availability: {{ artwork.availability ? 'For Sale' : 'Sold out' }}</p>
+    </mat-card-content>
+
+  </mat-card>
+</div>
+

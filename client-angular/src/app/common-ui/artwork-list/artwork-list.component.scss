@@ -1,0 +1,14 @@
+.artwork-list {
+  gap: 15px;
+  margin-bottom: 16px;
+}
+
+.artwork-item {
+  margin: 20px;
+  padding: 18px;
+  width: 230px;
+}
+
+.artwork-item.selected {
+  transform: scale(1.12);
+}

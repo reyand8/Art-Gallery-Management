@@ -1,0 +1,41 @@
+<mat-dialog-content>
+  <h2 mat-dialog-title>Create New Artwork</h2>
+  <form [formGroup]="artworkForm" (ngSubmit)="onSubmit()" class="dialog-form">
+    <mat-card-content class="dialog-form">
+      <mat-form-field>
+        <mat-label>Artist</mat-label>
+        <input class="form-input" matInput formControlName="artist" required>
+        <mat-error *ngIf="artworkForm.get('artist')?.hasError('required')">Artist is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Title</mat-label>
+        <input class="form-input" matInput formControlName="title" required>
+        <mat-error *ngIf="artworkForm.get('title')?.hasError('required')">Title is required</mat-error>
+        <mat-error *ngIf="artworkForm.get('title')?.hasError('maxlength')">Title cannot exceed 99 characters</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option value="painting">Painting</mat-option>
+          <mat-option value="sculpture">Sculpture</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input class="form-input" matInput formControlName="price" type="number">
+        <mat-error *ngIf="artworkForm.get('price')?.hasError('required')">Price is required</mat-error>
+        <mat-error *ngIf="artworkForm.get('price')?.hasError('min')">Price must be greater than 0</mat-error>
+      </mat-form-field>
+
+      <mat-checkbox formControlName="availability">Available</mat-checkbox>
+    </mat-card-content>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button (click)="onSubmit()" [disabled]="artworkForm.invalid">Submit</button>
+</mat-dialog-actions>

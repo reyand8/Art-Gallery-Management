@@ -1,0 +1,43 @@
+<div class="home-list">
+  <h2>Art Gallery</h2>
+  <mat-card class="home-filter">
+      <app-artwork-filters (filtersChanged)="applyFilters($event)"></app-artwork-filters>
+  </mat-card>
+
+  <div class="home-card">
+      <mat-card-actions class="action-btns">
+        <button mat-raised-button color="primary" (click)="openCreateDialog()">
+          Create
+        </button>
+        <button mat-raised-button color="secondary" (click)="onEditArtwork()">
+          Edit
+        </button>
+        <button mat-button color="warn" (click)="onDeleteArtwork()">
+          Delete
+        </button>
+      </mat-card-actions>
+      <ng-container *ngIf="loading$ | async; else content">
+        <div class="loading-box">
+          <mat-progress-spinner color="primary"></mat-progress-spinner>
+        </div>
+      </ng-container>
+
+
+      <ng-template #content>
+        <ng-container *ngIf="error; else artworksList">
+          <mat-card>
+            <mat-card-content>
+              <pre>{{ error }}</pre>
+            </mat-card-content>
+          </mat-card>
+        </ng-container>
+
+
+          <ng-template #artworksList>
+              <app-artwork-list class="app-artwork-list" [artworks]="artworks"></app-artwork-list>
+          </ng-template>
+      </ng-template>
+
+  </div>
+</div>
+
