@@ -19,11 +19,28 @@ ____
 
 ## Stack
 
+### Client
+
+React: 
+
 ✅ MaterialUI
 
 ✅ TypeScript
 
 ✅ React
+
+Angular:
+
+✅ Material Angular
+
+✅ TypeScript
+
+✅ Angular
+
+✅ Rxjs
+
+
+Server: 
 
 ✅ NestJS
 
@@ -44,6 +61,10 @@ ____
 
 The project consists of the two parts (server and client).
 
+You can use either the React client or the Angular client. 
+They have the same functionality but different styles.
+
+
 **Installation:**
 * Clone the repository: git clone https://github.com/reyand8/Art-Gallery-Management.git
 * Create .env file in the server directory
@@ -51,16 +72,24 @@ The project consists of the two parts (server and client).
 
 **Using Docker**
 
+* Select react-client or angular-client in the docker-compose file  
 * Build and start the containers using Docker Compose: docker-compose up
 
 
 **Using npm:**
 
 * Client
-    - Navigate to the project directory: cd client-react
-    - Install dependencies: npm install
-        - Run the project: npm run start
-        - Open a browser and navigate to: http://localhost:3000
+  * React
+      - Navigate to the project directory: cd client-react
+      - Install dependencies: npm install
+          - Run the project: npm run start
+          - Open a browser and navigate to: http://localhost:3000
+  * Angular
+      - Navigate to the project directory: cd client-angular
+      - Install dependencies: npm install
+          - Run the project: npm run start
+          - Open a browser and navigate to: http://localhost:4200
+  
 * Server
     - Navigate to the server directory: cd server
     - Install dependencies: npm install
