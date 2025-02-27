@@ -1,5 +1,6 @@
 # Art-Gallery-Management
-NestJS, PostgreSQL, Sequelize, React, TypeScript, Jest, Docker
+NestJS, PostgreSQL, Sequelize, Angular, Rxjs,
+React, TypeScript, Jest, Docker
 
 ## Contents
 * [Main Information](#📜-Main-Information)
